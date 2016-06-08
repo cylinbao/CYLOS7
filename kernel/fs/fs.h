@@ -59,7 +59,7 @@ struct fs_ops
 
 
 int fs_init();
-int fs_mount(const char* device_name, const char* path, unsigned long rwflag, const void* data);
+int fs_mount(const char* device_name, const char* path, const void* data);
 
 int file_open(struct fs_fd* fd, const char *path, int flags);
 int file_close(struct fs_fd* fd);
