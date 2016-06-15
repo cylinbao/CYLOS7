@@ -48,10 +48,16 @@ int fs_init()
     {
         fat_fs.ops->mkfs("elmfat");
         res = fs_mount("elmfat", "/", NULL);
+
+				if(res == 0)
+					printk("Successfully finish fs_init!\n");
+				else
+					printk("Error code: %d when doing fs_mount\n", res);
+
         return res;
     }
+
     return -STATUS_EIO;
-       
 }
 
 /** Mount a file system by path 
@@ -62,7 +68,15 @@ int fs_init()
 */
 int fs_mount(const char* device_name, const char* path, const void* data)
 {
-    return -STATUS_EIO;
+		int res;
+
+		if((res = f_mount(&fat, path, 1)) != 0)
+    	return -STATUS_EIO;
+
+		memcpy(fat_fs.path, path, strlen(path));
+		printk("fs_mount mounts path: %s for device: %s\n", fat_fs.path, device_name);
+
+		return STATUS_OK;
 } 
 
 int file_read(struct fs_fd* fd, void *buf, size_t len)

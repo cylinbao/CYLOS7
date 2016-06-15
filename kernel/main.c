@@ -28,7 +28,7 @@ void kernel_main(void)
 	trap_init();
 	pic_init();
 	kbd_init();
-    mem_init();
+  mem_init();
 
 	printk("Kernel code base start=0x%08x to = 0x%08x\n", stext, etext);
 	printk("Readonly data start=0x%08x to = 0x%08x\n", etext, rdata_end);
@@ -39,8 +39,8 @@ void kernel_main(void)
 	disk_init();
 	disk_test();
 	/*TODO Lab7: uncommend it when you finish 7.2 part */
-	//fs_test();
-	//fs_init();
+	fs_test();
+	fs_init();
 
 	task_init();
 

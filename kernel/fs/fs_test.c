@@ -32,4 +32,6 @@ void fs_test()
 
     /* Unregister work area */
     f_mount(0, "", 0);
+
+    printk("Congratulatoins! You have pass fs_test!\n");
 }

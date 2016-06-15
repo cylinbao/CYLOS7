@@ -17,8 +17,9 @@
   */
 DSTATUS disk_initialize (BYTE pdrv)
 {
-    //printk("disk_initialize %d\n", pdrv);
+    printk("Disk_initialize: %d\n", pdrv);
     /* TODO */
+
     return 0;
 }
 
@@ -48,14 +49,10 @@ DSTATUS disk_status (BYTE pdrv)
   */
 DRESULT disk_read (BYTE pdrv, BYTE* buff, DWORD sector, UINT count)
 {
-    int err = 0;
-    int i = count;
-    BYTE *ptr = buff;
-    UINT cur_sector = sector;
-    
-    //printk("disk_read %d sector %d count %d\n", pdrv, sector, count);
+    //printk("Disk_read: %d sector %d count %d\n", pdrv, sector, count);
     
     /* TODO */
+		return ide_read_sectors(DISK_ID, count, sector, buff);
 }
 
 /**
@@ -70,14 +67,9 @@ DRESULT disk_read (BYTE pdrv, BYTE* buff, DWORD sector, UINT count)
   */
 DRESULT disk_write (BYTE pdrv, const BYTE* buff, DWORD sector, UINT count)
 {
-    int err = 0;
-    int i = count;
-    BYTE *ptr = buff;
-    UINT cur_sector = sector;
-    
-    //printk("disk_write %d sector %d count %d\n", pdrv, sector, count);
+    //printk("Disk_write: %d sector %d count %d\n", pdrv, sector, count);
     /* TODO */    
-
+		return ide_write_sectors(DISK_ID, count, sector, buff);
 }
 
 /**
@@ -94,8 +86,15 @@ DRESULT disk_write (BYTE pdrv, const BYTE* buff, DWORD sector, UINT count)
 DRESULT disk_ioctl (BYTE pdrv, BYTE cmd, void* buff)
 {
     uint32_t *retVal = (uint32_t *)buff;
-    //printk("disk_ioctl drv=%d cmd=%d\n", pdrv, cmd);
+    //printk("Disk_ioctl: drv=%d cmd=%d\n", pdrv, cmd);
     /* TODO */    
+		switch(cmd){
+			case GET_SECTOR_COUNT:
+				*retVal = 32 * (1<<20) / 512;
+				break;
+		}
+	
+		return 0;
 }
 
 
